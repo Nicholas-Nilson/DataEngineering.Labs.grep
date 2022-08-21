@@ -108,4 +108,5 @@ This regex expression will ultimately be part of an automated data pipeline so w
 * Each field must be separated by a tab character.
 
 ```
+grep -E "^\d*\t[A-Z][a-zA-Z -_]*\t[A-Z][a-zA-Z -_]*\t.*?(Software|Developer).*?\t[^\d]*?\t.*?$" candidates_2.txt
 ```
