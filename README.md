@@ -12,37 +12,44 @@ Inside of the data directory there is a file called "transaction_data_daily_even
 
 Use grep to find all instances where the upload was initiated. 
 ```
-PROVIDE A SOLUTION HERE
+grep "upload" "transaction_data_daily_event_log_20190129.dat"
 ```
 
 Once you've reviewed these results, repeat the process but this time using the -c flag to determine how many matching occurences were found.
 ```
-PROVIDE A SOLUTION HERE
+grep "upload" "transaction_data_daily_event_log_20190129.dat" -c
+28
 ```
 
 
 Use grep to find all instances where the upload was successful. 
 ```
-PROVIDE A SOLUTION HERE
+grep "upload_complete" "transaction_data_daily_event_log_20190129.dat" 
 ```
 
 Once you've reviewed these results, determine how many matching occurrences were found. This time instead of using the -c flag, pipe the result to the wc program.
 ```
-PROVIDE A SOLUTION HERE
+grep upload_complete transaction_data_daily_event_log_20190129.dat| wc
+      12      12     744
 ```
 
 
 Use grep to find all instances where the upload failed. Ensure your output displays the line numbers for each match.
 
 ```
-PROVIDE A SOLUTION HERE
-```
+grep upload_failure transaction_data_daily_event_log_20190129.dat -n
+10:DIDLM230::transaction_data_upload_failure_04_20190129_080133::WEAKSIGNAL
+15:DIDLM230::transaction_data_upload_failure_06_20190129_120000::SYSTMAINTE
+18:DIDLM230::transaction_data_upload_failure_07_20190129_140754::WEAKSIGNAL
+23:DIDLM230::transaction_data_upload_failure_09_20190129_180000::SYSOFFLINE```
 
 Upon review, we would like to only view failures with error code SYSOFFLINE or WEAKSIGNAL.
 
 ```
-PROVIDE A SOLUTION HERE
-```
+grep 'SYSOFFLINE\|WEAKSIG' transaction_data_daily_event_log_20190129.dat
+DIDLM230::transaction_data_upload_failure_04_20190129_080133::WEAKSIGNAL
+DIDLM230::transaction_data_upload_failure_07_20190129_140754::WEAKSIGNAL
+DIDLM230::transaction_data_upload_failure_09_20190129_180000::SYSOFFLINE```
 
 
 ## Dunder Mifflin Paper Co. Users
@@ -51,23 +58,26 @@ Inside the data directory, there is a file called "users.csv". This file contain
 
 Identify users that have email addresses with six or less characters before the @ symbol where none of these characters are numbers.
 ```
-PROVIDE A SOLUTION HERE
+grep -E ',[a-zA-Z]{1,6}@' users.csv
+480,Beryle,Eve,bevedb@techcrunch.com,59.79.251.180,945-385-2799
+755,Conrade,Pre,cpreky@flickr.com,163.89.236.104,426-490-2406
 ```
 
 
 Marketing research has shown that the paper business is picking up in the academia space. Corporate has requested a list of all registered users that have an edu emaill address. Use grep to find the appropriate lines and output the results to a file called academia_users.txt.
 ```
-PROVIDE A SOLUTION HERE
-```
+grep ".edu," users.csv > academia_users.txt```
 
 
-Ryan Howard did a poor job and used the CC field rather than the BCC field for the company's email campaign. Dwight received a tip from Jim that there is a registered user who exploided this oversight to poach clients from Dunder Mifflin Paper Co. Dwight has provided us with two pieces of information:
+Ryan Howard did a poor job and used the CC field rather than the BCC field for the company's email campaign. Dwight received a tip from Jim that there is a registered user who exploited this oversight to poach clients from Dunder Mifflin Paper Co. Dwight has provided us with two pieces of information:
 1. The user registed to the service from an IPV4 ip address starting with the numbers 184. 
 2. The user's phone number starts with the numbers 38.
 
 Use grep to identify the user with a single regex pattern.
 ```
-PROVIDE A SOLUTION HERE
+..returns 4 users
+grep -E '184.*38' users.csv 
+24,Clarice,Curwood,ccurwoodn@typepad.com,184.223.202.53,380-764-9066
 ```
 
 
@@ -98,5 +108,4 @@ This regex expression will ultimately be part of an automated data pipeline so w
 * Each field must be separated by a tab character.
 
 ```
-PROVIDE A SOLUTION HERE
 ```
